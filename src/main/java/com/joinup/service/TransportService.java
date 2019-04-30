@@ -1,10 +1,11 @@
-package com.joinup.repository;
+package com.joinup.service;
 
 import com.joinup.entity.Transport;
 
 import java.util.List;
 
-public interface TransportRepository {
+public interface TransportService {
 
     List<Transport> isAll();
+
 }

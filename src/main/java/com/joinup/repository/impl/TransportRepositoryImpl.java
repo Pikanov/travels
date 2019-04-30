@@ -14,31 +14,26 @@ import java.util.List;
 public class TransportRepositoryImpl implements TransportRepository {
     private final static Logger LOGGER = Logger.getLogger(TransportRepositoryImpl.class);
 
+    private static final String SELECT_FROM_TYPE_TRANSPORT = "SELECT * FROM type_transport";
+
     @Override
     public List<Transport> isAll() {
-        String query = "SELECT * FROM type_transport";
         List<Transport> result = new ArrayList<>();
-        try (PreparedStatement ps = ConnectorDB.withConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = ConnectorDB.withConnection().prepareStatement(SELECT_FROM_TYPE_TRANSPORT)) {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 result.add(build(resultSet));
             }
         } catch (Exception e) {
             LOGGER.debug("incorrect sql query");
-            e.printStackTrace();
         }
         return result;
     }
 
-    private Transport build(ResultSet resultSet) {
-        Transport tarnsport = new Transport();
-        try {
-            tarnsport.setId(resultSet.getInt("id_type_transport"));
-            tarnsport.setNameTransport(resultSet.getString("name_transport"));
-        } catch (SQLException e) {
-            LOGGER.debug("incorrect sql query");
-            e.printStackTrace();
-        }
-        return tarnsport;
+    private Transport build(ResultSet resultSet) throws SQLException {
+        return Transport.builder()
+                .withId(resultSet.getInt("id_type_transport"))
+                .withNameTransport(resultSet.getString("name_transport"))
+                .build();
     }
 }

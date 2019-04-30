@@ -1,7 +1,7 @@
 package com.joinup.entity;
 
 public enum TypeTour {
-    CRUISE("cruise"), SHOPING("shoping"), RELAX("relax"), THERAPY("therapy"), EXCURSION("excursion");
+    CRUISE("cruise"), SHOPPING("shopping"), RELAX("relax"), THERAPY("therapy"), EXCURSION("excursion");
     private String title;
 
     TypeTour(String title) {
